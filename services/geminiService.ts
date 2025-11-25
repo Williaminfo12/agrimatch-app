@@ -1,6 +1,7 @@
 import { GoogleGenAI, Type } from "@google/genai";
 
 // Initialize the client
+// The API key is obtained exclusively from process.env.API_KEY as per guidelines.
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 const modelId = 'gemini-2.5-flash';

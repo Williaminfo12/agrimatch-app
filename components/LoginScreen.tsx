@@ -76,7 +76,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
                  <ol className="list-decimal ml-4 text-xs text-gray-500 space-y-1 mb-3">
                     <li>複製下方的目前網域</li>
                     <li>點擊按鈕前往 Firebase Console</li>
-                    <li>至 <b>Authentication</b> &gt; <b>Settings</b> &gt; <b>Authorized domains</b></li>
+                    <li>至 <b>Authentication</b> → <b>Settings</b> → <b>Authorized domains</b></li>
                     <li>點擊 <b>Add domain</b> 並貼上網域</li>
                  </ol>
                  
