@@ -1,15 +1,10 @@
-/// <reference types="vite/client" />
-
-interface ImportMetaEnv {
-  readonly VITE_GOOGLE_API_KEY: string
-}
-
-interface ImportMeta {
-  readonly env: ImportMetaEnv
-}
-
-declare namespace NodeJS {
-  interface ProcessEnv {
+// Fixed: Removed missing vite/client reference
+declare var process: {
+  env: {
     API_KEY: string;
+    [key: string]: string | undefined;
   }
 }
+
+// Ensure CSS imports work without vite/client
+declare module "*.css";

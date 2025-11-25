@@ -1,4 +1,3 @@
-
 export enum UserRole {
   NONE = 'NONE',
   OWNER = 'OWNER',
@@ -16,13 +15,11 @@ export interface UserProfile {
   uid: string;
   email: string;
   photoURL?: string;
-  // Private Information
   fullName: string;
   gender: 'male' | 'female'; 
   phoneNumber: string;
   nationality: Nationality;
-  // Public Information
-  ownedOrchards?: string; // Free text for simplicity in this demo
+  ownedOrchards?: string; 
   skills?: string[];
   creditScore: number;
 }
@@ -38,7 +35,7 @@ export interface JobApplication {
   jobId: string;
   workerId: string;
   workerName: string;
-  workerProfileSnapshot: UserProfile; // Store snapshot to view details easily
+  workerProfileSnapshot: UserProfile;
   status: ApplicationStatus;
   appliedAt: string;
 }
@@ -56,30 +53,27 @@ export interface ChatMessage {
 export interface JobPost {
   id: string;
   ownerId?: string;
-  ownerCreditScore?: number; // Displayed in worker list
+  ownerCreditScore?: number;
   status: 'active' | 'pending' | 'completed';
-  title: string; // Derived from crop + task
-  crop: string; // farm_type
-  task: string; // job_content
-  description: string; // notes_raw
-  notesSummary?: string; // notes_summary
-  payRate: string; // Combination of salary_type + salary_amount
+  title: string;
+  crop: string;
+  task: string;
+  description: string;
+  payRate: string;
   salaryType?: string;
   salaryAmount?: number;
-  location: string; // location_city + district
+  location: string;
   locationDistrict?: string;
-  date: string; // formatted date_start
+  date: string;
   time?: string;
   requiredWorkers: number;
   currentWorkers: number;
-  commuteTime?: number; // Calculated field for worker view
-  terrain?: 'flat' | 'slope'; // New field: 平地 or 山坡地
+  terrain?: 'flat' | 'slope';
   isAiGenerated?: boolean;
 }
 
-// Common constants for colors matching the Flutter design
 export const THEME_COLORS = {
-  OWNER: '#FF8C00', // Dark Orange
-  WORKER: '#38761D', // Dark Green
-  APP_BAR: '#F1F8E9', // Light Green 50 equivalent
+  OWNER: '#FF8C00',
+  WORKER: '#38761D',
+  APP_BAR: '#F1F8E9',
 };

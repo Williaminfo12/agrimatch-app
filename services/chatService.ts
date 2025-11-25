@@ -4,7 +4,6 @@ import { collection, addDoc, query, where, orderBy, onSnapshot, doc, getDocs, de
 import { jobService } from './jobService';
 
 export const chatService = {
-  // Subscribe to messages (Real-time)
   subscribeToMessages: (jobId: string, callback: (messages: ChatMessage[]) => void) => {
     const q = query(
       collection(db, "chats"), 
@@ -23,7 +22,6 @@ export const chatService = {
     return unsubscribe;
   },
 
-  // Send a message
   sendMessage: async (jobId: string, user: UserProfile, role: UserRole, content: string): Promise<void> => {
     const newMessage = {
       jobId,
@@ -37,7 +35,6 @@ export const chatService = {
     await addDoc(collection(db, "chats"), newMessage);
   },
 
-  // Delete all messages for a specific job
   deleteChatRoom: async (jobId: string): Promise<void> => {
     const q = query(collection(db, "chats"), where("jobId", "==", jobId));
     const snapshot = await getDocs(q);
@@ -46,22 +43,18 @@ export const chatService = {
     });
   },
 
-  // Get all active chats for a user
   getUserChats: async (userId: string): Promise<JobPost[]> => {
     const allJobs = await jobService.getJobs();
     const myApps = await jobService.getApplicationsByWorkerId(userId);
     
-    // 1. Jobs owned by user
     const ownedJobs = allJobs.filter(j => j.ownerId === userId && j.status === 'active');
     
-    // 2. Jobs where user is accepted worker
     const acceptedJobIds = myApps
         .filter(a => a.status === ApplicationStatus.ACCEPTED)
         .map(a => a.jobId);
     
     const workerJobs = allJobs.filter(j => acceptedJobIds.includes(j.id) && j.status === 'active');
     
-    // Combine
     const combined = [...ownedJobs, ...workerJobs];
     const uniqueJobs = Array.from(new Map(combined.map(item => [item.id, item])).values());
     

@@ -4,7 +4,6 @@ import { GoogleAuthProvider, signInWithPopup, signOut as firebaseSignOut, onAuth
 import { doc, getDoc, setDoc } from "firebase/firestore";
 
 export const authService = {
-  // Check session on app load
   restoreSession: async (): Promise<{ user: any, profile: UserProfile | null }> => {
     return new Promise((resolve) => {
       const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
@@ -14,21 +13,17 @@ export const authService = {
         } else {
            resolve({ user: null, profile: null });
         }
-        unsubscribe(); // only check once on restore
+        unsubscribe();
       });
     });
   },
 
-  // Google Sign In
   signInWithGoogle: async (): Promise<{ user: any, isNewUser: boolean }> => {
     try {
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      
-      // Check if profile exists
       const profile = await authService.getProfile(user.uid);
-      
       return { user, isNewUser: !profile };
     } catch (error) {
       console.error("Login failed", error);
@@ -36,12 +31,10 @@ export const authService = {
     }
   },
 
-  // Sign Out
   signOut: async (): Promise<void> => {
     await firebaseSignOut(auth);
   },
 
-  // Get current profile from Firestore
   getProfile: async (uid?: string): Promise<UserProfile | null> => {
     const userId = uid || auth.currentUser?.uid;
     if (!userId) return null;
@@ -56,7 +49,6 @@ export const authService = {
     }
   },
 
-  // Save/Update profile to Firestore
   saveProfile: async (profileData: Partial<UserProfile>): Promise<UserProfile> => {
     const user = auth.currentUser;
     if (!user) throw new Error("No user logged in");
@@ -80,7 +72,6 @@ export const authService = {
     return newProfile;
   },
   
-  // Format name helper
   formatPublicName: (profile: UserProfile | null): string => {
     if (!profile || !profile.fullName) return '貴賓';
     const surname = profile.fullName.charAt(0);

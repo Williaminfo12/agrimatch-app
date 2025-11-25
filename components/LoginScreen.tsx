@@ -49,20 +49,14 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
     <div className="min-h-screen bg-[#F1F8E9] flex flex-col items-center justify-center p-4">
       <div className="bg-white p-8 rounded-3xl shadow-xl w-full max-w-md text-center space-y-8 animate-fade-in">
         
-        {/* Logo Section */}
         <div className="flex flex-col items-center gap-4">
           <div className="bg-green-600 p-4 rounded-2xl shadow-lg text-white transform rotate-3 hover:rotate-0 transition-all duration-500">
             <Sprout size={64} />
           </div>
-          <h1 className="text-3xl font-bold text-green-900 tracking-tight">
-            農務輕鬆配
-          </h1>
-          <p className="text-gray-500 font-medium">
-            智慧媒合，農務更輕鬆
-          </p>
+          <h1 className="text-3xl font-bold text-green-900 tracking-tight">農務輕鬆配</h1>
+          <p className="text-gray-500 font-medium">智慧媒合，農務更輕鬆</p>
         </div>
 
-        {/* Error Message & Action */}
         {errorMessage && (
           <div className="bg-red-50 text-red-600 p-4 rounded-xl text-sm text-left border border-red-100">
              <div className="flex gap-3 items-start mb-2">
@@ -76,7 +70,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
                  <ol className="list-decimal ml-4 text-xs text-gray-500 space-y-1 mb-3">
                     <li>複製下方的目前網域</li>
                     <li>點擊按鈕前往 Firebase Console</li>
-                    <li>至 <b>Authentication</b> {'>'} <b>Settings</b> {'>'} <b>Authorized domains</b></li>
+                    <li>至 <b>Authentication</b> {'->'} <b>Settings</b> {'->'} <b>Authorized domains</b></li>
                     <li>點擊 <b>Add domain</b> 並貼上網域</li>
                  </ol>
                  
@@ -107,9 +101,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
 
              {errorType === 'config' && (
                <div className="mt-3 ml-8">
-                 <p className="text-xs text-gray-500 mb-2">
-                   請前往 Firebase Console -> Authentication -> Sign-in method 並啟用 <b>Google</b>。
-                 </p>
+                 <p className="text-xs text-gray-500 mb-2">請前往 Firebase Console 啟用 <b>Google</b> 登入。</p>
                  <a 
                    href="https://console.firebase.google.com/project/agrimatch-6abd5/authentication/providers" 
                    target="_blank" 
@@ -123,7 +115,6 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
           </div>
         )}
 
-        {/* Login Button */}
         <div className="space-y-4">
           <button
             onClick={handleLogin}
@@ -133,18 +124,10 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
             {isLoading ? (
               <Loader2 size={24} className="animate-spin text-green-600" />
             ) : (
-              <img 
-                src="https://www.svgrepo.com/show/475656/google-color.svg" 
-                alt="Google" 
-                className="w-6 h-6" 
-              />
+              <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" className="w-6 h-6" />
             )}
             <span className="text-lg">使用 Google 帳號登入</span>
           </button>
-          
-          <p className="text-xs text-gray-400 mt-4">
-            登入即代表您同意我們的服務條款與隱私權政策
-          </p>
         </div>
       </div>
     </div>
